@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RefreshScope
-@EnableAutoConfiguration
 @RestController
 @RequestMapping("/rest")
 public class SpringCloudConfigServerClient {
@@ -26,6 +24,9 @@ public class SpringCloudConfigServerClient {
 	@Value("${password}")
 	String password;
 	
+	@Value("${db}")
+	String db;
+	
 	@RequestMapping(value="/db" , method=RequestMethod.GET)
 	public String getDbDetails(){
 		Map<String, String> dbDetailsMap = new HashMap<>();
@@ -33,6 +34,7 @@ public class SpringCloudConfigServerClient {
 		dbDetailsMap.put("driverClassName",driverClassName);
 		dbDetailsMap.put("userName",userName);
 		dbDetailsMap.put("password",password);
+		dbDetailsMap.put("db",db);
 		return dbDetailsMap.toString();
 		
 		
